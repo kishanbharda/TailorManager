@@ -1,10 +1,23 @@
 export type Customer = {
-  fullName: String,
+  value: String,
   address: String,
-  mobile: String
+  mobile: String,
+  gender: String
 };
 
 export type Category = {
-  name: String,
+  value: String,
+  gender: String,
   sizes: String[]
+};
+
+export const Size = {
+  name: String,
+  value: Number
+};
+
+export type ITEM = {
+  customerName: String,
+  category: Category,
+  sizes: Size[]
 };
