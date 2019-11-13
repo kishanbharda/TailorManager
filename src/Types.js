@@ -18,6 +18,6 @@ export const Size = {
 
 export type ITEM = {
   customerName: String,
-  category: Category,
+  category: String,
   sizes: Size[]
 };

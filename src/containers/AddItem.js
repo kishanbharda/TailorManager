@@ -91,6 +91,7 @@ class AddItem extends Component {
   };
 
   handleCategoryChanges = (category, index, data) => {
+    this.setState({ selectedCategory: category });
     const sizes = [];
     this.state.categoriesToDisplay[index].sizes.forEach(size => {
       sizes.push({
@@ -102,9 +103,11 @@ class AddItem extends Component {
   };
 
   saveItem = () => {
+    console.log(this.state.selectedCategory);
+    console.log(this.state.selectedCustomer);
     const item: Types.ITEM = {
       category: this.state.selectedCategory,
-      customerName: this.state.selectedCustomer,
+      customer: this.state.selectedCustomer.value,
       sizes: this.state.sizes
     };
 
@@ -187,7 +190,9 @@ class AddItem extends Component {
                 dropdownPosition={0}
                 containerStyle={{ flex: 1, marginRight: 10 }}
                 dropdownOffset={{ top: 20, left: 0 }}
-                onChangeText={(value, index) => this.handleCategoryChanges(value, index)}
+                onChangeText={(value, index) =>
+                  this.handleCategoryChanges(value, index)
+                }
               />
               <Button
                 onPress={() => this.props.navigation.navigate('AddCustomer')}>
@@ -200,7 +205,15 @@ class AddItem extends Component {
             {this.state.sizes.map((size, index) => (
               <Item key={index.toString()}>
                 <Label>{size.name}</Label>
-                <Input keyboardType="decimal-pad" />
+                <Input
+                  keyboardType="decimal-pad"
+                  value={size.value}
+                  onChangeText={text => {
+                    const { sizes } = this.state;
+                    sizes[index].value = text;
+                    this.setState({ sizes });
+                  }}
+                />
               </Item>
             ))}
           </Card>
